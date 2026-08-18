@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
+<!-- ============================================
+     BASIC DOCUMENT METADATA
+     Sets character encoding, mobile viewport behaviour,
+     theme colour for the browser UI, and PWA-like title.
+     ============================================ -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#58cc02">
@@ -8,10 +13,30 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Mission">
 <title>Mission — Daily goals made fun</title>
+
+<!-- ============================================
+     FAVICON (Lightning bolt logo)
+     Uses an inline SVG data-URI so the app stays a single file.
+     The green (#58cc02) bolt matches the brand mark in the header.
+     ============================================ -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2358cc02' d='M13.5 2 5 13h6l-1 9 9-12h-6l.5-8Z'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2358cc02'/%3E%3Cpath fill='white' d='M13.5 2 5 13h6l-1 9 9-12h-6l.5-8Z'/%3E%3C/svg%3E">
+
+<!-- ============================================
+     GOOGLE FONTS
+     Fredoka = rounded display font used for titles & brand
+     Nunito Sans = bold body / UI font
+     ============================================ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
+/* ============================================
+   CSS CUSTOM PROPERTIES (design tokens)
+   Central place for the Duolingo-inspired colour palette
+   and shared values so the rest of the stylesheet stays consistent.
+   ============================================ */
 :root{
   --green:#58cc02;--green-dark:#46a302;--green-pale:#eafbdc;
   --blue:#1cb0f6;--blue-dark:#168fc8;--blue-pale:#e2f5fe;
@@ -20,15 +45,39 @@
   --ink:#3c3c3c;--muted:#777;--faint:#afafaf;--line:#e5e5e5;
   --surface:#fff;--page:#fbfbfb;--shadow:#d8d8d8;--radius:20px;
 }
+
+/* ============================================
+   GLOBAL RESET & BASE STYLES
+   Removes default margins, hides scrollbars, sets font,
+   and makes every element use border-box sizing.
+   ============================================ */
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;scrollbar-width:none}
 *::-webkit-scrollbar{display:none}
 html{background:var(--page)}
 body{margin:0;min-height:100vh;background:var(--page);color:var(--ink);font-family:"Nunito Sans",sans-serif;-webkit-font-smoothing:antialiased;overflow-y:scroll}
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
+
+/* ============================================
+   SVG ICON HELPERS
+   .icon = stroke-based icons (most UI icons)
+   .fill  = solid-filled icons (bolt, flame, etc.)
+   ============================================ */
 .icon{width:24px;height:24px;display:block;fill:none;stroke:currentColor;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round}
 .fill{fill:currentColor;stroke:none}
+
+/* ============================================
+   MAIN LAYOUT SHELL
+   Three-column grid on desktop:
+   left sidebar (240px) | main content | right sidebar (260px)
+   ============================================ */
 .shell{width:min(1180px,100%);margin:auto;display:grid;grid-template-columns:240px minmax(0,640px) 260px;gap:36px;min-height:100vh;padding:0 24px}
+
+/* ============================================
+   DESKTOP SIDEBAR (left navigation)
+   Sticky full-height column that holds the brand,
+   nav buttons and the tip card.
+   ============================================ */
 .sidebar{height:100vh;position:sticky;top:0;padding:34px 16px 28px 0;border-right:2px solid var(--line);display:flex;flex-direction:column;z-index:20}
 .brand{display:flex;align-items:center;gap:12px;margin:0 8px 34px;color:var(--green-dark)}
 .brand-mark{width:43px;height:43px;border-radius:15px;background:var(--green);box-shadow:0 5px 0 var(--green-dark);display:grid;place-items:center;color:#fff;transform:rotate(-4deg)}
@@ -43,8 +92,16 @@ button{cursor:pointer}
 .sidebar-tip{margin:auto 8px 0;padding:16px;border:2px solid var(--line);border-radius:18px;background:#fff}
 .sidebar-tip strong{font-family:"Fredoka";display:block;font-size:16px;margin-bottom:4px}
 .sidebar-tip span{color:var(--muted);font-size:12px;line-height:1.45;display:block}
+
+/* ============================================
+   MAIN CONTENT AREA
+   ============================================ */
 .content{padding:28px 0 120px;min-width:0}
-.mobile-head{display:none}
+.mobile-head{display:none} /* shown only on mobile via media query */
+
+/* ============================================
+   DESKTOP TOP BAR (date + streak / XP)
+   ============================================ */
 .topbar{height:52px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
 .topbar-date small{display:block;color:var(--faint);font-weight:900;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 .topbar-date strong{font-family:"Fredoka";font-size:22px;letter-spacing:-.3px}
@@ -52,8 +109,17 @@ button{cursor:pointer}
 .mini-stat{height:42px;padding:0 12px;border:2px solid var(--line);border-radius:14px;background:#fff;display:flex;align-items:center;gap:7px;font-weight:900;font-size:14px}
 .mini-stat .icon{width:20px;height:20px}
 .mini-stat.fire{color:var(--orange)}.mini-stat.xp{color:var(--blue)}
+
+/* ============================================
+   PAGE SECTIONS (Today / Progress / My goals)
+   Only one page is visible at a time via .active
+   ============================================ */
 .page{display:none}.page.active{display:block;animation:page-in .28s ease both}
 @keyframes page-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ============================================
+   DAILY GOAL CARD (green hero card on Today page)
+   ============================================ */
 .goal-card{position:relative;overflow:hidden;background:var(--green);border-radius:25px;padding:25px 26px 22px;color:#fff;box-shadow:0 7px 0 var(--green-dark);margin-bottom:34px}
 .goal-card:after{content:"";position:absolute;width:190px;height:190px;border:34px solid #ffffff16;border-radius:50%;right:-72px;top:-82px}
 .goal-grid{display:grid;grid-template-columns:1fr 125px;gap:18px;align-items:center;position:relative;z-index:1}
@@ -68,10 +134,19 @@ button{cursor:pointer}
 .goal-track i{display:block;height:100%;width:0;border-radius:20px;background:#fff;transition:.5s cubic-bezier(.2,.8,.2,1);position:relative}
 .goal-track i:after{content:"";position:absolute;left:8px;right:8px;top:2px;height:3px;border-radius:5px;background:#ffffff88}
 .goal-count{font-size:13px;font-weight:900;white-space:nowrap}
+
+/* ============================================
+   SECTION HEADERS & TASK LIST
+   ============================================ */
 .section-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 2px 15px}
 .section-head h2{font-family:"Fredoka";font-size:23px;letter-spacing:-.35px;margin:0}
 .section-head span{color:var(--faint);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
 .tasks{display:flex;flex-direction:column;gap:14px}
+
+/* ============================================
+   INDIVIDUAL TASK / MISSION CARD
+   Colour variants are driven by data-color attribute
+   ============================================ */
 .task{--accent:var(--blue);--accent-dark:var(--blue-dark);--accent-pale:var(--blue-pale);display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:14px;align-items:center;padding:15px 16px 15px 14px;border:2px solid var(--line);border-bottom-width:5px;border-radius:20px;background:#fff;transition:.16s;animation:task-in .35s ease both}
 @keyframes task-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .task:hover{border-color:#d6d6d6;transform:translateY(-1px)}
@@ -90,9 +165,17 @@ button{cursor:pointer}
 .check .icon{width:21px;height:21px;stroke-width:3}
 .check:hover{border-color:var(--accent);color:var(--accent)}
 .done .check{background:var(--green);border-color:var(--green-dark);color:#fff}
+
+/* ============================================
+   EMPTY STATE (when no missions exist)
+   ============================================ */
 .empty{padding:34px 20px;text-align:center;border:2px dashed var(--line);border-radius:22px;background:#fff;color:var(--muted)}
 .empty-art{width:68px;height:68px;border-radius:22px;background:var(--green-pale);color:var(--green);display:grid;place-items:center;margin:0 auto 13px;transform:rotate(-4deg)}
 .empty-art .icon{width:34px;height:34px}.empty strong{font-family:"Fredoka";font-size:19px;display:block;color:var(--ink)}.empty p{font-size:13px;margin:5px 0 0}
+
+/* ============================================
+   PROGRESS PAGE – stats, rank, calendar, coach
+   ============================================ */
 .panel-title{margin-bottom:20px}
 .panel-title h1{font-family:"Fredoka";font-size:31px;margin:0;letter-spacing:-.6px}.panel-title p{color:var(--muted);font-size:14px;font-weight:700;margin:4px 0 0}
 .stats-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:30px}
@@ -112,6 +195,10 @@ button{cursor:pointer}
 .mascot:before,.mascot:after{content:"";width:20px;height:25px;border-radius:50%;background:#fff;border:3px solid var(--green-dark)}.mascot:after{margin-left:-4px}
 .mascot-eyes{position:absolute;display:flex;gap:16px;top:30px}.mascot-eyes i{width:6px;height:8px;border-radius:50%;background:#333}
 .coach-card strong{font-family:"Fredoka";font-size:18px}.coach-card p{color:#52822d;font-size:13px;line-height:1.4;margin:3px 0 0;font-weight:700}
+
+/* ============================================
+   MY GOALS PAGE – form, mission list, download, reset
+   ============================================ */
 .form-card{border:2px solid var(--line);border-bottom-width:5px;border-radius:22px;background:#fff;padding:20px;margin-bottom:28px}
 .field-label{display:block;font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
 .input-row{display:grid;grid-template-columns:minmax(0,1fr) 94px;gap:10px}.input,.select{width:100%;height:50px;border:2px solid var(--line);border-radius:14px;background:#fff;padding:0 14px;outline:none;font-weight:800}.input:focus,.select:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-pale)}
@@ -119,22 +206,60 @@ button{cursor:pointer}
 .mission-list{display:flex;flex-direction:column;gap:10px}.mission-row{display:grid;grid-template-columns:44px minmax(0,1fr) auto auto;align-items:center;gap:11px;border:2px solid var(--line);border-radius:16px;padding:10px;background:#fff}.mission-row .task-icon{width:42px;height:42px;border-radius:13px}.mission-row .task-icon .icon{width:21px;height:21px}.mission-row strong{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mission-row .xp-pill{font-size:11px;font-weight:900;color:var(--blue-dark);background:var(--blue-pale)}
 .delete{width:36px;height:36px;border:2px solid var(--line);border-radius:11px;background:#fff;color:var(--faint);display:grid;place-items:center}.delete:hover{color:var(--red);border-color:#ffc5c5;background:#fff0f0}.delete .icon{width:18px;height:18px}
 .download-card,.data-card{border:2px solid var(--line);border-radius:20px;padding:18px;background:#fff}.download-card{display:grid;grid-template-columns:50px minmax(0,1fr) auto;gap:14px;align-items:center;border-color:#bfe8fb;background:var(--blue-pale)}.download-icon{width:50px;height:50px;border-radius:15px;background:#fff;color:var(--blue);display:grid;place-items:center}.download-icon .icon{width:26px;height:26px}.download-card strong,.data-card strong{font-family:"Fredoka";font-size:18px}.download-card p,.data-card p{color:var(--muted);font-size:13px;margin:4px 0 0}.download-button{height:45px;border:0;border-radius:13px;background:var(--blue);box-shadow:0 4px 0 var(--blue-dark);color:#fff;font-weight:900;padding:0 17px;white-space:nowrap}.download-button:active{transform:translateY(3px);box-shadow:0 1px 0 var(--blue-dark)}.download-button:disabled{opacity:.65;cursor:wait}.data-card{border-color:#ffd0d0;background:#fff7f7}.data-card p{margin-bottom:14px}.danger{height:45px;border:0;border-radius:13px;background:var(--red);box-shadow:0 4px 0 var(--red-dark);color:#fff;font-weight:900;padding:0 18px}.danger:active{transform:translateY(3px);box-shadow:0 1px 0 var(--red-dark)}
+
+/* ============================================
+   RIGHT SIDEBAR (desktop only – daily quest + coach note)
+   ============================================ */
 .rightbar{padding-top:80px}.side-card{border:2px solid var(--line);border-bottom-width:5px;border-radius:20px;background:#fff;padding:17px;margin-bottom:18px}.side-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.side-card-head strong{font-family:"Fredoka";font-size:18px}.side-card-head span{color:var(--blue);font-size:11px;font-weight:900;text-transform:uppercase}.daily-row{display:flex;align-items:center;gap:11px}.daily-icon{width:44px;height:44px;border-radius:14px;background:var(--yellow-pale);color:var(--orange);display:grid;place-items:center}.daily-icon .icon{width:23px;height:23px}.daily-copy{flex:1}.daily-copy b{font-size:13px;display:block}.daily-copy span{color:var(--faint);font-size:11px;font-weight:800}.side-progress{height:8px;border-radius:10px;background:#eee;margin-top:12px;overflow:hidden}.side-progress i{display:block;width:0;height:100%;border-radius:10px;background:var(--yellow);transition:.5s}
 .quote{font-family:"Fredoka";font-size:17px;line-height:1.35;margin:0}.quote-by{display:block;color:var(--faint);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.07em;margin-top:8px}
+
+/* ============================================
+   TOAST NOTIFICATIONS & CELEBRATION PARTICLES
+   ============================================ */
 .toast{position:fixed;left:50%;bottom:32px;z-index:80;transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--ink);color:#fff;padding:13px 19px;border-radius:14px;font-weight:900;font-size:13px;box-shadow:0 8px 24px #0003;transition:.22s}.toast.show{opacity:1;transform:translate(-50%,0)}
 .celebrate{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}.particle{position:absolute;width:9px;height:14px;border-radius:3px;animation:pop .9s ease-out forwards}@keyframes pop{to{transform:translate(var(--x),var(--y)) rotate(580deg);opacity:0}}
 :focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Medium screens – hide the right sidebar */
 @media(max-width:1040px){.shell{grid-template-columns:210px minmax(0,640px);justify-content:center}.rightbar{display:none}}
+
+/* Mobile – turn left sidebar into floating bottom navbar */
 @media(max-width:760px){
-  .shell{display:block;padding:0;min-height:100vh}.sidebar{position:fixed;left:0;right:0;bottom:0;top:auto;height:auto;padding:7px 10px calc(7px + env(safe-area-inset-bottom));border:0;border-top:2px solid var(--line);background:#ffffffee;z-index:40;left:50%;right:auto;bottom:calc(10px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(420px,calc(100% - 24px));border:2px solid var(--line);border-radius:24px;box-shadow:0 12px 35px #0002;backdrop-filter:blur(18px)}.brand,.sidebar-tip{display:none}.nav{flex-direction:row;gap:4px}.nav button{flex:1;flex-direction:column;gap:3px;padding:6px 2px 4px;font-size:9px;border-radius:12px}.nav button .icon{width:23px;height:23px}.nav button.active{border-color:transparent;background:var(--blue-pale)}
-  .content{padding:0 16px calc(110px + env(safe-area-inset-bottom));max-width:640px;margin:auto}.topbar{display:none}.mobile-head{height:65px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--line);margin:0 -16px 18px;padding:calc(7px + env(safe-area-inset-top)) 16px 7px;background:#fff;position:sticky;top:0;z-index:30}.mobile-brand{font-family:"Fredoka";font-size:22px;color:var(--green-dark);display:flex;align-items:center;gap:8px}.mobile-brand .brand-mark{width:31px;height:31px;border-radius:10px;box-shadow:0 3px 0 var(--green-dark)}.mobile-brand .icon{width:18px;height:18px}.mobile-stats{display:flex;gap:11px}.mobile-stat{display:flex;align-items:center;gap:4px;font-weight:900;font-size:13px}.mobile-stat .icon{width:18px;height:18px}.mobile-stat.fire{color:var(--orange)}.mobile-stat.xp{color:var(--blue)}
+  .shell{display:block;padding:0;min-height:100vh}
+  .sidebar{position:fixed;left:0;right:0;bottom:0;top:auto;height:auto;padding:7px 10px calc(7px + env(safe-area-inset-bottom));border:0;border-top:2px solid var(--line);background:#ffffffee;z-index:40;left:50%;right:auto;bottom:calc(10px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(420px,calc(100% - 24px));border:2px solid var(--line);border-radius:24px;box-shadow:0 12px 35px #0002;backdrop-filter:blur(18px)}
+  .brand,.sidebar-tip{display:none}
+  .nav{flex-direction:row;gap:4px}
+  .nav button{flex:1;flex-direction:column;gap:3px;padding:6px 2px 4px;font-size:9px;border-radius:12px}
+  .nav button .icon{width:23px;height:23px}
+  .nav button.active{border-color:transparent;background:var(--blue-pale)}
+  .content{padding:0 16px calc(110px + env(safe-area-inset-bottom));max-width:640px;margin:auto}
+  .topbar{display:none}
+  .mobile-head{height:65px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--line);margin:0 -16px 18px;padding:calc(7px + env(safe-area-inset-top)) 16px 7px;background:#fff;position:sticky;top:0;z-index:30}
+  .mobile-brand{font-family:"Fredoka";font-size:22px;color:var(--green-dark);display:flex;align-items:center;gap:8px}
+  .mobile-brand .brand-mark{width:31px;height:31px;border-radius:10px;box-shadow:0 3px 0 var(--green-dark)}
+  .mobile-brand .icon{width:18px;height:18px}
+  .mobile-stats{display:flex;gap:11px}
+  .mobile-stat{display:flex;align-items:center;gap:4px;font-weight:900;font-size:13px}
+  .mobile-stat .icon{width:18px;height:18px}
+  .mobile-stat.fire{color:var(--orange)}.mobile-stat.xp{color:var(--blue)}
   .goal-card{padding:22px 20px 19px;border-radius:22px;margin-bottom:30px}.goal-grid{grid-template-columns:1fr 92px}.goal-card h1{font-size:26px}.goal-card p{font-size:13px}.progress-orb{width:86px;height:86px}.progress-orb b{font-size:21px}.goal-bottom{margin-top:18px}.task{grid-template-columns:53px minmax(0,1fr) auto;padding:12px 12px 12px 10px;gap:11px}.task-icon{width:50px;height:50px;border-radius:15px}.task-icon .icon{width:25px;height:25px}.task-name{font-size:15px}.task-meta{font-size:10px}.check{width:40px;height:40px}.panel-title h1{font-size:28px}.stats-grid{grid-template-columns:1fr}.stat-card.primary{min-height:130px}.calendar-card{padding:14px}.calendar{gap:4px}.dot{border-radius:9px;font-size:10px}.coach-card{grid-template-columns:60px 1fr;padding:14px}.mascot{width:58px;height:58px;border-radius:19px}.mascot:before,.mascot:after{width:16px;height:20px}.mascot-eyes{top:25px;gap:13px}.input-row{grid-template-columns:1fr 84px}.mission-row{grid-template-columns:40px minmax(0,1fr) auto auto;gap:8px;padding:8px}.mission-row .task-icon{width:38px;height:38px}.download-card{grid-template-columns:46px minmax(0,1fr);gap:12px}.download-icon{width:46px;height:46px}.download-button{grid-column:1/-1;width:100%}.toast{bottom:92px;max-width:calc(100% - 30px);white-space:nowrap}
 }
+
+/* Very small phones */
 @media(max-width:390px){.task-meta .meta-label{display:none}.goal-card h1{font-size:23px}.progress-orb{width:78px;height:78px}.goal-grid{grid-template-columns:1fr 78px}.mission-row .xp-pill{display:none}}
+
+/* Respect user preference for reduced motion */
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
 
-/* Final mobile navigation: the sidebar is the floating pill; the inner .nav stays inside it. */
+/* ============================================
+   FINAL MOBILE NAVBAR BASE (floating pill)
+   This turns the sidebar into the bottom floating bar.
+   ============================================ */
 @media(max-width:760px){
   .sidebar{
     position:fixed !important;
@@ -189,6 +314,8 @@ button{cursor:pointer}
     border-color:transparent !important;
   }
 }
+
+/* Hide Netlify private-project banners if present */
 [id="netlify-private-banner"],[id="netlify-private-banner-dismiss"],
 [class*="netlify-private-banner"],[id*="private-project"],[class*="private-project"]{
   display:none !important;
@@ -196,6 +323,10 @@ button{cursor:pointer}
 
 </style>
 
+<!-- ============================================
+     DARK BACKGROUND ONLY
+     Forces a near-black page background.
+     ============================================ -->
 <style id="dark-background-only">
 html, body {
   background: #080808 !important;
@@ -206,6 +337,10 @@ body {
 </style>
 
 
+<!-- ============================================
+     DARK HEADER + NAVBAR
+     Darkens the top bar and the floating navbar shell.
+     ============================================ -->
 <style id="dark-header-navbar">
 /* Dark header + floating navbar only — original design preserved */
 header,
@@ -248,6 +383,9 @@ header *,
 </style>
 
 
+<!-- ============================================
+     DARK MOBILE HEADER ONLY
+     ============================================ -->
 <style id="dark-mobile-header-only">
 /* Same original UI — only the mobile header is darkened */
 .mobile-head{
@@ -270,6 +408,10 @@ header *,
 </style>
 
 
+<!-- ============================================
+     DARK TEXT FIX
+     Makes headings readable on the dark background.
+     ============================================ -->
 <style id="dark-text-fix">
 /* Keep the original design; make text that was black on the white theme readable on black */
 .today-missions-title,
@@ -282,6 +424,9 @@ h2 {
 </style>
 
 
+<!-- ============================================
+     NAVBAR INNER ACTIVE STATE (dark)
+     ============================================ -->
 <style id="navbar-inner-dark-fix">
 /* Make the navbar's inner selected pill dark too */
 .sidebar .active,
@@ -299,6 +444,11 @@ h2 {
 </style>
 
 
+<!-- ============================================
+     TRUE DARK THEME
+     Full dark mode that keeps the original brand colours
+     (green, blue, yellow, orange) for accents and cards.
+     ============================================ -->
 <style id="mission-true-dark-theme">
 /* TRUE DARK MODE: original Duolingo/Mission brand colors are preserved. */
 :root{
@@ -458,6 +608,11 @@ html,body,.shell,.content,.main,.page{
 </style>
 
 
+<!-- ============================================
+     FINAL NAVBAR ACTIVE STATE OVERRIDE
+     Ensures the active button stays correctly coloured
+     even when earlier media-query rules fight for specificity.
+     ============================================ -->
 <style id="FINAL-NAVBAR-INNER-DARK">
 /* Final override: the original mobile selector has higher specificity, so target it directly. */
 @media (max-width: 900px){
@@ -479,6 +634,12 @@ html,body,.shell,.content,.main,.page{
 </style>
 
 
+<!-- ============================================
+     CLEAN HEADER + SMALLER & LOWER NAVBAR
+     This is the ONLY place that changes navbar size and vertical position.
+     - Smaller overall height / padding / button size
+     - Pushed further toward the bottom edge of the screen
+     ============================================ -->
 <style id="clean-header-small-navbar">
 /* Clean header: seamless with the app background */
 .mobile-head,
@@ -489,46 +650,59 @@ html,body,.shell,.content,.main,.page{
   box-shadow: none !important;
 }
 
-/* Smaller floating navbar, keeping the same design/colors */
+/* ---------- SMALLER + LOWER floating navbar ---------- */
 .sidebar {
   left: 50% !important;
-  width: min(88vw, 680px) !important;
+  width: min(78vw, 340px) !important;   /* narrower bar */
   transform: translateX(-50%) !important;
-  padding: 6px !important;
-  border-radius: 30px !important;
+  padding: 4px !important;              /* less padding → smaller height */
+  border-radius: 22px !important;       /* slightly tighter radius */
+  /* Move the bar closer to the physical bottom of the screen */
+  bottom: calc(0px + env(safe-area-inset-bottom)) !important;
 }
 
 .sidebar .nav {
-  gap: 4px !important;
+  gap: 2px !important;
 }
 
 .sidebar .nav button {
-  min-height: 64px !important;
-  padding: 8px 14px !important;
-  border-radius: 24px !important;
+  min-height: 44px !important;          /* smaller tap targets */
+  padding: 4px 8px !important;          /* less vertical padding */
+  border-radius: 18px !important;
 }
 
 .sidebar .nav button .icon {
-  font-size: 24px !important;
+  width: 18px !important;               /* smaller icons */
+  height: 18px !important;
 }
 
 .sidebar .nav button span {
-  font-size: 13px !important;
+  font-size: 10px !important;           /* smaller labels */
   line-height: 1.1 !important;
 }
 </style>
 
 </head>
 <body>
+
+<!-- ============================================
+     SVG SPRITE (hidden)
+     All icons live here as <symbol>s and are reused
+     via <use href="#i-..."> throughout the UI.
+     ============================================ -->
 <svg style="display:none" aria-hidden="true">
+  <!-- Brand / XP bolt (also used as favicon) -->
   <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.5 2 5 13h6l-1 9 9-12h-6l.5-8Z" class="fill"/></symbol>
+  <!-- Navigation icons -->
   <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-7 9 7"/><path d="M5.5 10v10h13V10M9 20v-6h6v6"/></symbol>
   <symbol id="i-chart" viewBox="0 0 24 24"><path d="M5 20V11M12 20V4M19 20v-6"/><path d="M3 20h18"/></symbol>
   <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></symbol>
+  <!-- Status icons -->
   <symbol id="i-flame" viewBox="0 0 24 24"><path d="M13 2c1 4-4 5-4 10a3 3 0 0 0 6 0c0-2-1-2.5-.4-4.5C17 9 18 11 18 14a6 6 0 0 1-12 0c0-5 3-8 7-12Z" class="fill"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12.5 5.2 5.2L20 6.5"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
   <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6.5 7l1 13h9l1-13"/></symbol>
+  <!-- Default mission icons -->
   <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5c3-1 5.5-.7 8 1 2.5-1.7 5-2 8-1v14c-3-1-5.5-.7-8 1-2.5-1.7-5-2-8-1Z"/><path d="M12 6v14"/></symbol>
   <symbol id="i-calc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8.5 11h1M12 11h1M15.5 11h1M8.5 15h1M12 15h1M15.5 15h1M8.5 18h1M12 18h4.5"/></symbol>
   <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3M7.5 15h9"/></symbol>
@@ -541,28 +715,46 @@ html,body,.shell,.content,.main,.page{
   <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
 </svg>
 
+<!-- ============================================
+     APP SHELL
+     Three regions: left sidebar / main content / right sidebar
+     On mobile the left sidebar becomes the floating bottom navbar.
+     ============================================ -->
 <div class="shell">
+
+  <!-- LEFT SIDEBAR / FLOATING NAVBAR -->
   <aside class="sidebar">
+    <!-- Brand (hidden on mobile) -->
     <div class="brand"><div class="brand-mark"><svg class="icon"><use href="#i-bolt"/></svg></div><span class="brand-name">mission</span></div>
+
+    <!-- Main navigation buttons -->
     <nav class="nav" aria-label="Main navigation">
       <button class="active" data-page="today" onclick="showPage('today')"><svg class="icon"><use href="#i-home"/></svg><span>Today</span></button>
       <button data-page="progress" onclick="showPage('progress')"><svg class="icon"><use href="#i-chart"/></svg><span>Progress</span></button>
       <button data-page="setup" onclick="showPage('setup')"><svg class="icon"><use href="#i-gear"/></svg><span>My goals</span></button>
     </nav>
+
+    <!-- Motivational tip (hidden on mobile) -->
     <div class="sidebar-tip"><strong>Small steps win.</strong><span>Complete one mission now. Momentum does the rest.</span></div>
   </aside>
 
+  <!-- MAIN CONTENT -->
   <main class="content">
+    <!-- Mobile-only sticky header (logo + streak/XP) -->
     <div class="mobile-head">
       <div class="mobile-brand"><div class="brand-mark"><svg class="icon"><use href="#i-bolt"/></svg></div>mission</div>
       <div class="mobile-stats"><div class="mobile-stat fire"><svg class="icon"><use href="#i-flame"/></svg><span id="mobileStreak">0</span></div><div class="mobile-stat xp"><svg class="icon"><use href="#i-bolt"/></svg><span id="mobileXP">0</span></div></div>
     </div>
+
+    <!-- Desktop top bar (date + streak/XP) -->
     <header class="topbar">
       <div class="topbar-date"><small>Your daily plan</small><strong id="date"></strong></div>
       <div class="top-stats"><div class="mini-stat fire"><svg class="icon"><use href="#i-flame"/></svg><span id="streakTop">0</span></div><div class="mini-stat xp"><svg class="icon"><use href="#i-bolt"/></svg><span id="xpTop">0</span> XP</div></div>
     </header>
 
+    <!-- ========== TODAY PAGE ========== -->
     <section id="today" class="page active">
+      <!-- Green daily-goal hero card with progress ring -->
       <div class="goal-card">
         <div class="goal-grid">
           <div><div class="goal-kicker">Daily goal</div><h1 id="goalTitle">Ready for a strong day?</h1><p id="goalMessage">Finish your missions and keep your streak growing.</p></div>
@@ -571,9 +763,11 @@ html,body,.shell,.content,.main,.page{
         <div class="goal-bottom"><div class="goal-track"><i id="bar"></i></div><span class="goal-count" id="missionCount">0 / 0</span></div>
       </div>
       <div class="section-head"><h2>Today's missions</h2><span id="xpToday">0 XP earned</span></div>
+      <!-- Mission list is rendered by JavaScript into #tasks -->
       <div class="tasks" id="tasks"></div>
     </section>
 
+    <!-- ========== PROGRESS PAGE ========== -->
     <section id="progress" class="page">
       <div class="panel-title"><h1>Your progress</h1><p>Every checkmark moves you forward.</p></div>
       <div class="stats-grid">
@@ -587,8 +781,10 @@ html,body,.shell,.content,.main,.page{
       <div class="coach-card"><div class="mascot"><div class="mascot-eyes"><i></i><i></i></div></div><div><strong id="quote">Keep showing up.</strong><p>The perfect plan matters less than the next small action.</p></div></div>
     </section>
 
+    <!-- ========== MY GOALS / SETUP PAGE ========== -->
     <section id="setup" class="page">
       <div class="panel-title"><h1>My goals</h1><p>Build a daily plan that feels doable.</p></div>
+      <!-- Form to add a new daily mission -->
       <div class="form-card">
         <label class="field-label" for="newMission">New daily mission</label>
         <div class="input-row"><input id="newMission" class="input" maxlength="60" placeholder="Read for 20 minutes" aria-describedby="missionHelp"><select id="newXP" class="select" aria-label="XP reward"><option value="10">10 XP</option><option value="20" selected>20 XP</option><option value="30">30 XP</option><option value="40">40 XP</option></select></div>
@@ -596,6 +792,7 @@ html,body,.shell,.content,.main,.page{
         <button class="add-button" onclick="addMission()">Add to my day</button>
       </div>
       <div class="section-head"><h2>Daily list</h2><span id="setupCount">0 goals</span></div>
+      <!-- Editable mission list rendered by JS -->
       <div class="mission-list" id="mlist"></div>
       <div class="section-head" style="margin-top:30px"><h2>App code</h2><span>Single HTML file</span></div>
       <div class="download-card"><div class="download-icon"><svg class="icon"><use href="#i-download"/></svg></div><div><strong>Download this app</strong><p>Save the complete source code and publish it anywhere.</p></div><button id="downloadCodeButton" class="download-button" onclick="downloadCode()">Download code</button></div>
@@ -604,15 +801,26 @@ html,body,.shell,.content,.main,.page{
     </section>
   </main>
 
+  <!-- RIGHT SIDEBAR (desktop only) -->
   <aside class="rightbar">
     <div class="side-card"><div class="side-card-head"><strong>Daily quest</strong><span id="questStatus">0 / 0</span></div><div class="daily-row"><div class="daily-icon"><svg class="icon"><use href="#i-trophy"/></svg></div><div class="daily-copy"><b>Complete your list</b><span>Earn bonus momentum</span></div></div><div class="side-progress"><i id="sideProgress"></i></div></div>
     <div class="side-card"><div class="side-card-head"><strong>Coach's note</strong></div><p class="quote" id="sideQuote">Make the next step obvious.</p><span class="quote-by">Daily reminder</span></div>
   </aside>
 </div>
-<div id="toast" class="toast" role="status" aria-live="polite"></div><div id="celebrate" class="celebrate"></div>
+
+<!-- Toast message element (appears briefly at the bottom) -->
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<!-- Container for the particle celebration burst -->
+<div id="celebrate" class="celebrate"></div>
 
 <script>
+/* ============================================
+   DATA & STATE
+   Everything is stored in localStorage under KEY.
+   ============================================ */
 const KEY="mission_pro_v3";
+
+/* Default starter missions shown to a brand-new user */
 const base=[
   {icon:"book",name:"Physics — 45 min",meta:"Deep study",xp:40},
   {icon:"calc",name:"Math — 45 min",meta:"Practice",xp:30},
@@ -621,45 +829,105 @@ const base=[
   {icon:"brain",name:"10 min review",meta:"Recall & remember",xp:15},
   {icon:"phoneoff",name:"Phone-free focus",meta:"One focused block",xp:25}
 ];
+
+/* Load existing state or create a fresh one from the base list */
 let state=JSON.parse(localStorage.getItem(KEY)||"null")||{tasks:base.map((item,index)=>({...item,id:index+1})),days:{},xp:0,completed:0};
+
+/* Colour cycle used for task cards */
 const colors=["blue","green","yellow","orange"];
+
+/* Persist the whole state object to localStorage */
 function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+
+/* Returns a YYYY-MM-DD string for a given Date (defaults to today) */
 function dateKey(date=new Date()){return date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0")}
+
+/* Ensures today’s entry exists and returns it */
 function getToday(){const key=dateKey();if(!state.days[key])state.days[key]={done:[]};return state.days[key]}
+
+/* True if the given day has at least one completed mission */
 function isComplete(key){return Boolean(state.days[key]&&state.days[key].done.length)}
+
+/* Counts consecutive days ending today that have completions */
 function streak(){let count=0,date=new Date();while(isComplete(dateKey(date))){count++;date.setDate(date.getDate()-1)}return count}
+
+/* Helper that returns an SVG icon element as a string */
 function icon(name){return `<svg class="icon"><use href="#i-${name}"></use></svg>`}
-function esc(value){return String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]))}
+
+/* Escape HTML special characters to prevent XSS when rendering user text */
+function esc(value){return String(value).replace(/[&<>"']/g,char=>({"&":"&","<":"<",">":">",'"':""","'":"&#039;"}[char]))}
+
+/* ============================================
+   RENDER – rebuilds the entire visible UI from state
+   ============================================ */
 function render(){
   const today=getToday(),doneSet=new Set(today.done),earned=state.tasks.filter(task=>doneSet.has(task.id)).reduce((sum,task)=>sum+task.xp,0),total=state.tasks.reduce((sum,task)=>sum+task.xp,0),percent=total?Math.round(earned/total*100):0,currentStreak=streak(),doneCount=state.tasks.filter(task=>doneSet.has(task.id)).length;
+
+  /* Header date & stats */
   document.getElementById("date").textContent=new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"});
   document.getElementById("streakTop").textContent=currentStreak;document.getElementById("mobileStreak").textContent=currentStreak;
   document.getElementById("xpTop").textContent=state.xp;document.getElementById("mobileXP").textContent=state.xp;
+
+  /* Progress ring & bars */
   document.getElementById("pct").textContent=percent+"%";document.getElementById("ring").style.setProperty("--p",percent+"%");
   document.getElementById("bar").style.width=percent+"%";document.getElementById("sideProgress").style.width=percent+"%";
   document.getElementById("missionCount").textContent=doneCount+" / "+state.tasks.length;document.getElementById("questStatus").textContent=doneCount+" / "+state.tasks.length;
   document.getElementById("xpToday").textContent=earned+" XP earned";
+
+  /* Dynamic goal title / message */
   document.getElementById("goalTitle").textContent=percent===100&&state.tasks.length?"Daily goal complete!":doneCount?"You're on a roll!":"Ready for a strong day?";
   document.getElementById("goalMessage").textContent=percent===100&&state.tasks.length?"Amazing work. Come back tomorrow to grow your streak.":doneCount?"Keep going — the next win is close.":"Finish your missions and keep your streak growing.";
+
+  /* Today’s mission list */
   document.getElementById("tasks").innerHTML=state.tasks.length?state.tasks.map((task,index)=>`<article class="task ${doneSet.has(task.id)?"done":""}" data-color="${colors[index%colors.length]}" style="animation-delay:${index*45}ms"><div class="task-icon">${icon(task.icon||"target")}</div><div class="task-copy"><div class="task-name">${esc(task.name)}</div><div class="task-meta"><span class="xp-pill">+${task.xp} XP</span><span class="meta-label">${esc(task.meta||"Daily mission")}</span></div></div><button class="check" aria-pressed="${doneSet.has(task.id)}" aria-label="${doneSet.has(task.id)?"Mark incomplete":"Complete"}: ${esc(task.name)}" onclick="toggle(${task.id},this)">${icon("check")}</button></article>`).join(""):`<div class="empty"><div class="empty-art">${icon("target")}</div><strong>Your day is wide open</strong><p>Add a small mission in My goals to get started.</p></div>`;
+
+  /* My-goals editable list */
   document.getElementById("mlist").innerHTML=state.tasks.length?state.tasks.map((task,index)=>`<div class="mission-row"><div class="task-icon" style="--accent:${["var(--blue)","var(--green)","var(--yellow)","var(--orange)"][index%4]};--accent-pale:${["var(--blue-pale)","var(--green-pale)","var(--yellow-pale)","#fff0d6"][index%4]}">${icon(task.icon||"target")}</div><strong>${esc(task.name)}</strong><span class="xp-pill">${task.xp} XP</span><button class="delete" onclick="deleteMission(${task.id})" aria-label="Delete ${esc(task.name)}">${icon("trash")}</button></div>`).join(""):`<div class="empty"><div class="empty-art">${icon("plus")}</div><strong>Add your first goal</strong><p>Make it small enough to finish today.</p></div>`;
   document.getElementById("setupCount").textContent=state.tasks.length+" goal"+(state.tasks.length===1?"":"s");
+
+  /* Progress page numbers */
   document.getElementById("pStreak").textContent=currentStreak;document.getElementById("pDone").textContent=state.completed;document.getElementById("pXP").textContent=state.xp;
   const level=Math.floor(state.xp/100)+1,levelXP=state.xp%100;document.getElementById("level").textContent="Level "+level;document.getElementById("levelXP").textContent=levelXP+" / 100 XP";document.getElementById("levelbar").style.width=levelXP+"%";
-  renderCalendar();save();
+
+  renderCalendar();
+  save();
 }
+
+/* Toggle a mission complete / incomplete for today */
 function toggle(id,button){const today=getToday(),index=today.done.indexOf(id),task=state.tasks.find(item=>item.id===id);if(!task)return;if(index===-1){today.done.push(id);state.xp+=task.xp;state.completed++;burst(button)}else{today.done.splice(index,1);state.xp=Math.max(0,state.xp-task.xp);state.completed=Math.max(0,state.completed-1)}render()}
+
+/* Add a new custom mission from the form */
 function addMission(){const input=document.getElementById("newMission"),name=input.value.trim(),xp=Number(document.getElementById("newXP").value);if(!name){input.focus();toast("Give your mission a name");return}state.tasks.push({id:Date.now(),icon:"target",name,meta:"Daily mission",xp});input.value="";toast("Mission added to your day");render()}
+
+/* Remove a mission permanently and clean it from history */
 function deleteMission(id){const task=state.tasks.find(item=>item.id===id);if(!task)return;state.tasks=state.tasks.filter(item=>item.id!==id);Object.values(state.days).forEach(day=>day.done=day.done.filter(doneId=>doneId!==id));toast("Mission removed");render()}
+
+/* Draw the last-14-days consistency calendar */
 function renderCalendar(){const box=document.getElementById("calendar"),now=new Date(),labels=["S","M","T","W","T","F","S"];let html="";for(let offset=13;offset>=0;offset--){const date=new Date(now);date.setDate(now.getDate()-offset);const key=dateKey(date);html+=`<div class="day">${labels[date.getDay()]}<div class="dot ${isComplete(key)?"done":""} ${offset===0?"today":""}">${date.getDate()}</div></div>`}box.innerHTML=html}
+
+/* Switch the visible page and update nav active state */
 function showPage(id){document.querySelectorAll(".page").forEach(page=>page.classList.toggle("active",page.id===id));document.querySelectorAll(".nav button").forEach(button=>button.classList.toggle("active",button.dataset.page===id));window.scrollTo({top:0,behavior:"smooth"})}
+
+/* Download the entire HTML source as a single file */
 async function downloadCode(){const button=document.getElementById("downloadCodeButton"),label=button.textContent;button.disabled=true;button.textContent="Preparing…";try{let source;try{const response=await fetch(new URL("index.html",location.href),{cache:"no-store"});if(!response.ok)throw new Error("Download failed");source=await response.text()}catch(error){source="<!doctype html>\n"+document.documentElement.outerHTML}const blob=new Blob([source],{type:"text/html;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download="mission-app.html";document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);toast("Code downloaded as mission-app.html")}catch(error){toast("Could not prepare the download")}finally{button.disabled=false;button.textContent=label}}
+
+/* Wipe all data and reload */
 function resetAll(){if(confirm("Reset every mission, streak, and XP total?")){localStorage.removeItem(KEY);location.reload()}}
+
+/* Show a temporary toast message */
 let toastTimer;function toast(message){const element=document.getElementById("toast");clearTimeout(toastTimer);element.textContent=message;element.classList.add("show");toastTimer=setTimeout(()=>element.classList.remove("show"),1900)}
+
+/* Particle burst celebration when a mission is completed */
 function burst(button){const layer=document.getElementById("celebrate"),palette=["#58cc02","#1cb0f6","#ffc800","#ff9600","#ff4b4b"];const rect=button?.getBoundingClientRect();const originX=rect?rect.left+rect.width/2:window.innerWidth/2;const originY=rect?rect.top+rect.height/2:window.innerHeight*.42;for(let index=0;index<34;index++){const piece=document.createElement("i");piece.className="particle";piece.style.left=originX+"px";piece.style.top=originY+"px";piece.style.background=palette[index%palette.length];piece.style.setProperty("--x",(Math.random()*190-95)+"px");piece.style.setProperty("--y",(Math.random()*190-120)+"px");piece.style.transform="translate(-50%,-50%)";layer.appendChild(piece);setTimeout(()=>piece.remove(),950)}}
+
+/* Rotating daily motivational quotes */
 const quotes=["The next step is the only one that matters.","A tiny win still counts as a win.","Make the next step obvious.","Consistency beats intensity.","Start small. Finish proud."];
 const quote=quotes[new Date().getDate()%quotes.length];document.getElementById("quote").textContent=quote;document.getElementById("sideQuote").textContent=quote;
+
+/* Allow Enter key to submit the new-mission form */
 document.getElementById("newMission").addEventListener("keydown",event=>{if(event.key==="Enter")addMission()});
+
+/* Initial render when the page loads */
 render();
 </script>
 </body>
