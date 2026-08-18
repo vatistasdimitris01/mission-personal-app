@@ -1,1 +1,510 @@
-PLACEHOLDER
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#58cc02">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mission">
+<title>Mission — Daily goals made fun</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2358cc02' d='M13.5 2 5 13h6l-1 9 9-12h-6l.5-8Z'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACs0lEQVR42u3c0VHrMBCGUSzylvGkGCpIASmACikgBaSCVJNnZmiAJ4yk3dX5CmCIc/hlQ+7dzvvlTfqt5hIIDsEhOASH4BAcgkNwCA7BIcEhOASH4BAcgkNwCA7BoeU6RfuGbo/Xyu/H/brH+Wa2CJ8+XxxEWCgzcTARXMkcHFikIDIaBxaJiDQycjXyGg5aDiwyTkgjw4RMw0FG3mvbyOBjAg4ysvtoZPAxFAcZNXw0MviY+SirpLXgeDXx+jcy+HCsaB4Os1FvPCyHOuMwGyXHw3IIDk3B4UyperJYDsEhOBQIhxuOwrcdlkNw/LWvj284RAYcgsNswEEGHGTAITjMBhwlZHw+3+GQzYBDcJgNOMiAgww4BIfZgIMMOMiAQ3CYDa2Mgww4yIBDcJgNOGLJWPnDHAvhsBlwCA6zAQcZcJABh7J1Kvzajs/G8a+Q+mG4kdGv7L8maWSQ4Z5DcJgNOMiAgww4BIfZgIMMOMgoLcM9h0rjMBtwkDGh3H+VPf7GHORV+xPI7jkEhwMFjmFnygr/pMVykAGH4DAbcJABBxlwCI7cz7EL/ncMloMMOMiAQ3CYDTjIgIMMOBI/x8IhswEHGXCQAYfgMBtwkAFHuOdYMuAQHA4UOMiAgww4BIfZgCP6cywZcNgMOASH2YCDDDgEhxbFcb/uLmLYDr47lkNwCA7FwuG2o+QNh+UQHJqIw8lS70yxHBqCw3gUmw3LoVE4jEel2fj/5eCjjAzHisbiMB41ZqPXcvBRQEbHY4WP7DL63nPwkVpG9xtSPvLKGPG0wkfea9sKvAYyOrWd98uw13N7vLypiX7YWslXRUa+5TAhuX605uBAJMXizsRBSfBTOAQOUGLeloXDoTj5k73gEByCQ3AIDsEhOASH4BAcEhyCQ3AIDsEhOASH4FDZfgCuV/M3alYsXgAAAABJRU5ErkJggg==">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{--green:#58cc02;--green-dark:#46a302;--green-pale:#eafbdc;--blue:#1cb0f6;--blue-dark:#168fc8;--blue-pale:#e2f5fe;--yellow:#ffc800;--yellow-dark:#d7a900;--yellow-pale:#fff7d2;--orange:#ff9600;--red:#ff4b4b;--red-dark:#d83c3c;--ink:#3c3c3c;--muted:#777;--faint:#afafaf;--line:#e5e5e5;--surface:#fff;--page:#0b0d0f;--shadow:#d8d8d8;--radius:20px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;scrollbar-width:none}::-webkit-scrollbar{display:none}
+html,body{margin:0;min-height:100vh;background:#0b0d0f;color:#f7f7f7;font-family:"Nunito Sans",sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}button{cursor:pointer}
+.icon{width:24px;height:24px;display:block;fill:none;stroke:currentColor;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round}
+.fill{fill:currentColor;stroke:none}
+.shell{width:min(1180px,100%);margin:auto;display:grid;grid-template-columns:240px minmax(0,640px) 260px;gap:36px;min-height:100vh;padding:0 24px}
+.sidebar{height:100vh;position:sticky;top:0;padding:34px 16px 28px 0;border-right:2px solid #2a2d32;display:flex;flex-direction:column;z-index:20}
+.brand{display:flex;align-items:center;gap:12px;margin:0 8px 34px;color:var(--green)}
+.brand-mark{width:43px;height:43px;border-radius:15px;background:var(--green);box-shadow:0 5px 0 var(--green-dark);display:grid;place-items:center;color:#fff;transform:rotate(-4deg)}
+.brand-mark .icon{width:25px;height:25px;stroke-width:3}
+.brand-name{font-family:"Fredoka",sans-serif;font-size:27px;font-weight:700;letter-spacing:-.8px}
+.nav{display:flex;flex-direction:column;gap:8px}
+.nav a,.nav button{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;border:none;background:transparent;color:#afafaf;font-weight:800;font-size:16px;text-align:left;transition:.15s}
+.nav a.active,.nav button.active{background:#1a1d21;color:#fff}
+.nav a:hover,.nav button:hover{background:#15181c;color:#fff}
+.nav .icon{width:22px;height:22px}
+.sidebar-foot{margin-top:auto;padding:16px 8px 0}
+.content{padding:28px 0 40px;min-width:0}
+.rightbar{padding:34px 0 28px 16px;border-left:2px solid #2a2d32;position:sticky;top:0;height:100vh;overflow:auto}
+.mobile-head{display:none}
+.topbar{height:52px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.topbar-date small{display:block;color:#7f838a;font-weight:900;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.topbar-date strong{font-family:"Fredoka";font-size:22px;letter-spacing:-.3px}
+.top-stats{display:flex;align-items:center;gap:9px}
+.mini-stat{height:42px;padding:0 12px;border:2px solid #2b2f35;border-radius:14px;background:#15181c;display:flex;align-items:center;gap:7px;font-weight:900;font-size:14px}
+.mini-stat .icon{width:20px;height:20px}
+.mini-stat.fire{color:var(--orange)}.mini-stat.xp{color:var(--blue)}
+.page{display:none}.page.active{display:block}
+.goal-card{position:relative;overflow:hidden;background:var(--green);border-radius:25px;padding:25px 26px 22px;color:#fff;box-shadow:0 7px 0 var(--green-dark);margin-bottom:34px}
+.goal-card:after{content:"";position:absolute;width:190px;height:190px;border:34px solid #ffffff16;border-radius:50%;right:-72px;top:-82px}
+.goal-grid{display:grid;grid-template-columns:1fr 125px;gap:18px;align-items:center;position:relative;z-index:1}
+.goal-kicker{font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;opacity:.8}
+.goal-card h1{font-family:"Fredoka";font-size:31px;line-height:1.08;margin:5px 0 8px;letter-spacing:-.5px}
+.goal-card p{font-size:14px;margin:0;opacity:.9;font-weight:700}
+.progress-orb{width:112px;height:112px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#fff var(--p),#ffffff45 0);position:relative;margin-left:auto;transition:.35s}
+.progress-orb:after{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--green)}
+.progress-orb b{position:relative;z-index:1;font-family:"Fredoka";font-size:25px}
+.goal-bottom{position:relative;z-index:1;margin-top:22px;display:flex;align-items:center;gap:12px}
+.goal-track{height:14px;flex:1;border-radius:20px;background:#ffffff45;overflow:hidden}
+.goal-track i{display:block;height:100%;width:0;border-radius:20px;background:#fff;transition:.35s;position:relative}
+.goal-count{font-size:13px;font-weight:900;white-space:nowrap}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 2px 15px}
+.section-head h2{font-family:"Fredoka";font-size:23px;letter-spacing:-.35px;margin:0;color:#f7f7f7}
+.section-head span{color:#7f838a;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.tasks{display:flex;flex-direction:column;gap:14px}
+.task{--accent:var(--blue);--accent-dark:var(--blue-dark);--accent-pale:var(--blue-pale);display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:14px;align-items:center;padding:15px 16px 15px 14px;border:2px solid #2b2f35;border-bottom-width:5px;border-radius:20px;background:#15181c;transition:opacity .15s,background .15s}
+.task:active{transform:translateY(2px);border-bottom-width:2px;margin-bottom:3px}
+.task[data-color="green"]{--accent:var(--green);--accent-dark:var(--green-dark);--accent-pale:var(--green-pale)}
+.task[data-color="yellow"]{--accent:var(--yellow);--accent-dark:var(--yellow-dark);--accent-pale:var(--yellow-pale)}
+.task[data-color="orange"]{--accent:var(--orange);--accent-dark:#d77e00;--accent-pale:#fff0d6}
+.task[data-color="red"]{--accent:var(--red);--accent-dark:var(--red-dark);--accent-pale:#ffe5e5}
+.task.done{opacity:.55}
+.task.done .task-name{text-decoration:line-through;color:#7f838a}
+.task-icon{width:56px;height:56px;border-radius:16px;background:var(--accent);box-shadow:0 4px 0 var(--accent-dark);display:grid;place-items:center;color:#fff}
+.task-icon .icon{width:28px;height:28px;stroke-width:2.5}
+.task-body{min-width:0}
+.task-name{font-size:16px;font-weight:800;margin:0 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.task-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.xp-pill{font-size:11px;font-weight:900;padding:3px 8px;border-radius:8px;background:var(--accent);color:#fff}
+.task-desc{font-size:12px;color:#7f838a;font-weight:700}
+.check{width:44px;height:44px;border-radius:14px;border:2.5px solid #3a3f46;background:#0f1215;display:grid;place-items:center;color:#7f838a;transition:.15s}
+.check:hover{border-color:var(--accent);color:var(--accent)}
+.task.done .check{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 3px 0 var(--accent-dark)}
+.form-card{background:#15181c;border:2px solid #2b2f35;border-radius:22px;padding:22px;margin-top:28px}
+.form-card h3{font-family:"Fredoka";font-size:20px;margin:0 0 16px}
+.form-row{margin-bottom:14px}
+.form-row label{display:block;font-size:12px;font-weight:900;color:#7f838a;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.form-row input,.form-row select{width:100%;height:48px;border-radius:14px;border:2px solid #2b2f35;background:#0f1215;padding:0 14px;font-weight:700}
+.form-row input:focus,.form-row select:focus{outline:none;border-color:var(--green)}
+.icon-picker{display:flex;flex-wrap:wrap;gap:8px}
+.icon-picker button{width:44px;height:44px;border-radius:12px;border:2px solid #2b2f35;background:#0f1215;display:grid;place-items:center;color:#afafaf}
+.icon-picker button.active,.icon-picker button:hover{border-color:var(--green);color:var(--green);background:#152016}
+.icon-picker .icon{width:22px;height:22px}
+.btn-primary{width:100%;height:52px;border:none;border-radius:16px;background:var(--green);color:#fff;font-weight:900;font-size:16px;box-shadow:0 5px 0 var(--green-dark);margin-top:8px}
+.btn-primary:active{transform:translateY(3px);box-shadow:0 2px 0 var(--green-dark)}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+.stat-card{background:#15181c;border:2px solid #2b2f35;border-radius:20px;padding:18px;text-align:center}
+.stat-card b{display:block;font-family:"Fredoka";font-size:28px;margin-bottom:4px}
+.stat-card span{font-size:12px;color:#7f838a;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.download-card{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:14px;align-items:center;background:#15181c;border:2px solid #2b2f35;border-radius:20px;padding:16px;margin-top:20px}
+.download-card .dl-icon{width:48px;height:48px;border-radius:14px;background:var(--blue);display:grid;place-items:center;color:#fff}
+.download-button{height:44px;padding:0 18px;border:none;border-radius:12px;background:var(--green);color:#fff;font-weight:900;box-shadow:0 4px 0 var(--green-dark)}
+#app-loader{position:fixed;inset:0;background:#0b0d0f;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .35s,visibility .35s}
+#app-loader.hide{opacity:0;visibility:hidden;pointer-events:none}
+#app-loader .loader-mark{width:56px;height:56px;border-radius:16px;background:#58cc02;box-shadow:0 6px 0 #46a302;display:grid;place-items:center;color:#fff;transform:rotate(-4deg);margin-bottom:16px}
+#app-loader .loader-mark svg{width:30px;height:30px;fill:#fff}
+#app-loader .loader-name{font-family:"Fredoka",sans-serif;font-size:22px;font-weight:700;color:#58cc02;letter-spacing:-.5px}
+.tab-wrapper{transition:flex .35s cubic-bezier(.25,1,.5,1)}
+#mobileNavbar .tab-wrapper{height:100%}
+#mobileNavbar button{
+  min-height:54px !important;
+  height:100%;
+  padding-top:6px !important;
+  padding-bottom:6px !important;
+}
+#mobileNavbar .tab-wrapper .w-4{
+  width:22px !important;
+  height:22px !important;
+}
+#mobileNavbar .tab-wrapper span{
+  font-size:9px !important;
+}
+.duo-glass{background:rgba(16,20,24,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:9999px;border:1px solid rgba(255,255,255,.05);box-shadow:0 10px 40px -10px rgba(0,0,0,.7)}
+#mobileNavbar{
+  display:none;
+  position:fixed;
+  left:50%;
+  bottom:calc(20px + env(safe-area-inset-bottom,0px));
+  transform:translateX(-50%);
+  z-index:9999;
+  width:min(287px, calc(100vw - 104px));
+  height:62px;
+  padding:4px;
+  box-sizing:border-box;
+}
+@media(max-width:1040px){.shell{grid-template-columns:210px minmax(0,640px);justify-content:center}.rightbar{display:none}}
+@media(max-width:760px){
+.shell{display:block;padding:0;min-height:100vh}
+.sidebar{display:none!important}
+#mobileNavbar{display:flex!important}
+.content{padding:0 16px calc(100px + env(safe-area-inset-bottom,0px));max-width:640px;margin:auto}
+.topbar{display:none}
+.mobile-head{min-height:65px;display:flex;align-items:center;justify-content:space-between;border-bottom:0;margin:0 -16px 18px;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;background:#0b0d0f;position:sticky;top:0;z-index:30;-webkit-backdrop-filter:none;backdrop-filter:none}
+.mobile-brand{font-family:"Fredoka";font-size:22px;color:var(--green);display:flex;align-items:center;gap:8px}
+.mobile-brand .brand-mark{width:31px;height:31px;border-radius:10px;box-shadow:0 3px 0 var(--green-dark)}.mobile-brand .icon{width:18px;height:18px}
+.mobile-stats{display:flex;gap:11px}.mobile-stat{display:flex;align-items:center;gap:4px;font-weight:900;font-size:13px}.mobile-stat .icon{width:18px;height:18px}.mobile-stat.fire{color:var(--orange)}.mobile-stat.xp{color:var(--blue)}
+.goal-card{padding:22px 20px 19px;border-radius:22px;margin-bottom:30px}.goal-grid{grid-template-columns:1fr 92px}.goal-card h1{font-size:26px}.progress-orb{width:86px;height:86px}.progress-orb b{font-size:21px}
+.task{grid-template-columns:53px minmax(0,1fr) auto;padding:12px;gap:11px}.task-icon{width:50px;height:50px;border-radius:15px}.task-icon .icon{width:25px;height:25px}.task-name{font-size:15px}.check{width:40px;height:40px}
+.stats-grid{grid-template-columns:1fr}.download-card{grid-template-columns:46px minmax(0,1fr)}.download-button{grid-column:1/-1;width:100%}
+}
+</style>
+</head>
+<body>
+<div id="app-loader">
+  <div class="loader-mark"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 2 5 13h6l-1 9 9-12h-6l.5-8Z"/></svg></div>
+  <div class="loader-name">mission</div>
+</div>
+<svg style="display:none" aria-hidden="true">
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.5 2 5 13h6l-1 9 9-12h-6l.5-8Z" class="fill"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19V8"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+<symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6.5 6.5h11M6.5 17.5h11M4 9v6M20 9v6M2 10.5v3M22 10.5v3M9 6.5v11M15 6.5v11"/></symbol>
+<symbol id="i-flower" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2c1.5 3 1.5 5 0 8-1.5-3-1.5-5 0-8zM12 14c1.5 3 1.5 5 0 8-1.5-3-1.5-5 0-8zM2 12c3-1.5 5-1.5 8 0-3 1.5-5 1.5-8 0zM14 12c3-1.5 5-1.5 8 0-3 1.5-5 1.5-8 0z"/></symbol>
+<symbol id="i-phone-off" viewBox="0 0 24 24"><path d="M10.5 1.5h3v3h-3zM6 6l12 12M8 8.5V18a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-1.5"/><path d="M16 8.5V6a2 2 0 0 0-2-2h-4"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7.5"/></symbol>
+<symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 2c2 3 3 5 3 8a5 5 0 1 1-10 0c0-2 1.5-4.5 3-6 0 2 1 3 2 3s1.5-1 2-3z" class="fill"/></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z" class="fill"/></symbol>
+</svg>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><svg class="icon"><use href="#i-bolt"/></svg></div>
+      <div class="brand-name">mission</div>
+    </div>
+    <nav class="nav">
+      <button type="button" data-page="today" class="active"><svg class="icon"><use href="#i-home"/></svg> Today</button>
+      <button type="button" data-page="progress"><svg class="icon"><use href="#i-chart"/></svg> Progress</button>
+      <button type="button" data-page="goals"><svg class="icon"><use href="#i-target"/></svg> My Goals</button>
+    </nav>
+    <div class="sidebar-foot">
+      <div style="font-size:12px;color:#7f838a;font-weight:800">Streak & XP live here</div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="mobile-head">
+      <div class="mobile-brand">
+        <div class="brand-mark"><svg class="icon"><use href="#i-bolt"/></svg></div>
+        <span>mission</span>
+      </div>
+      <div class="mobile-stats">
+        <div class="mobile-stat fire"><svg class="icon"><use href="#i-fire"/></svg> <span id="mStreak">0</span></div>
+        <div class="mobile-stat xp"><svg class="icon"><use href="#i-zap"/></svg> <span id="mXp">0</span></div>
+      </div>
+    </div>
+
+    <div class="topbar">
+      <div class="topbar-date"><small id="dateLabel">TODAY</small><strong id="dateStrong">—</strong></div>
+      <div class="top-stats">
+        <div class="mini-stat fire"><svg class="icon"><use href="#i-fire"/></svg> <span id="dStreak">0</span></div>
+        <div class="mini-stat xp"><svg class="icon"><use href="#i-zap"/></svg> <span id="dXp">0</span></div>
+      </div>
+    </div>
+
+    <section class="page active" id="page-today">
+      <div class="goal-card">
+        <div class="goal-grid">
+          <div>
+            <div class="goal-kicker">Daily goal</div>
+            <h1 id="goalTitle">Ready for a strong day?</h1>
+            <p id="goalSub">Finish your missions and keep your streak growing.</p>
+          </div>
+          <div class="progress-orb" id="progressOrb" style="--p:0%"><b id="progressPct">0%</b></div>
+        </div>
+        <div class="goal-bottom">
+          <div class="goal-track"><i id="goalBar"></i></div>
+          <div class="goal-count" id="goalCount">0 / 0</div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <h2>Today's missions</h2>
+        <span id="xpEarned">0 XP earned</span>
+      </div>
+      <div class="tasks" id="taskList"></div>
+
+      <div class="form-card">
+        <h3>Add a mission</h3>
+        <div class="form-row">
+          <label>Name</label>
+          <input id="newName" placeholder="e.g. Read 20 pages" maxlength="60">
+        </div>
+        <div class="form-row">
+          <label>XP</label>
+          <input id="newXp" type="number" min="5" max="100" value="20">
+        </div>
+        <div class="form-row">
+          <label>Description</label>
+          <input id="newDesc" placeholder="Optional note" maxlength="80">
+        </div>
+        <div class="form-row">
+          <label>Icon</label>
+          <div class="icon-picker" id="iconPicker">
+            <button type="button" data-icon="i-book" class="active"><svg class="icon"><use href="#i-book"/></svg></button>
+            <button type="button" data-icon="i-dumbbell"><svg class="icon"><use href="#i-dumbbell"/></svg></button>
+            <button type="button" data-icon="i-flower"><svg class="icon"><use href="#i-flower"/></svg></button>
+            <button type="button" data-icon="i-phone-off"><svg class="icon"><use href="#i-phone-off"/></svg></button>
+            <button type="button" data-icon="i-bolt"><svg class="icon"><use href="#i-bolt"/></svg></button>
+            <button type="button" data-icon="i-target"><svg class="icon"><use href="#i-target"/></svg></button>
+            <button type="button" data-icon="i-fire"><svg class="icon"><use href="#i-fire"/></svg></button>
+            <button type="button" data-icon="i-zap"><svg class="icon"><use href="#i-zap"/></svg></button>
+          </div>
+        </div>
+        <button type="button" class="btn-primary" id="addBtn">Add mission</button>
+      </div>
+    </section>
+
+    <section class="page" id="page-progress">
+      <div class="section-head"><h2>Progress</h2></div>
+      <div class="stats-grid">
+        <div class="stat-card"><b id="sStreak">0</b><span>Day streak</span></div>
+        <div class="stat-card"><b id="sXp">0</b><span>Total XP</span></div>
+        <div class="stat-card"><b id="sDone">0</b><span>Completed</span></div>
+        <div class="stat-card"><b id="sTotal">0</b><span>All missions</span></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-goals">
+      <div class="section-head"><h2>My Goals</h2></div>
+      <p style="color:#7f838a;font-weight:700">Manage long-term goals here. Coming soon — for now use Today to track daily missions.</p>
+    </section>
+  </main>
+
+  <aside class="rightbar">
+    <div style="font-weight:900;margin-bottom:12px">Quick tips</div>
+    <p style="font-size:13px;color:#7f838a;line-height:1.5">Complete all missions to grow your streak. XP fuels your progress orb.</p>
+  </aside>
+</div>
+
+<nav id="mobileNavbar" class="duo-glass flex items-center justify-between gap-1 px-1">
+  <div class="tab-wrapper flex-1 flex justify-center">
+    <button type="button" data-page="today" class="flex flex-col items-center justify-center gap-0.5 rounded-full px-3 text-white bg-[#1cb0f6]/20 w-full">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z"/></svg>
+      <span class="font-bold uppercase tracking-wide">Today</span>
+    </button>
+  </div>
+  <div class="tab-wrapper flex-1 flex justify-center">
+    <button type="button" data-page="progress" class="flex flex-col items-center justify-center gap-0.5 rounded-full px-3 text-[#afafaf] w-full">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19V8"/></svg>
+      <span class="font-bold uppercase tracking-wide">Progress</span>
+    </button>
+  </div>
+  <div class="tab-wrapper flex-1 flex justify-center">
+    <button type="button" data-page="goals" class="flex flex-col items-center justify-center gap-0.5 rounded-full px-3 text-[#afafaf] w-full">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+      <span class="font-bold uppercase tracking-wide">My Goals</span>
+    </button>
+  </div>
+</nav>
+
+<script>
+/* Mission Pro – single-file PWA
+   localStorage key: mission_pro_v3
+*/
+(function(){
+  const STORAGE = 'mission_pro_v3';
+  const $ = (s, el=document) => el.querySelector(s);
+  const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+
+  let state = load();
+  let selectedIcon = 'i-book';
+
+  function load(){
+    try {
+      const raw = localStorage.getItem(STORAGE);
+      if(raw) return JSON.parse(raw);
+    } catch(e){}
+    return {
+      missions: [
+        {id:'1', name:'Physics — 45 min', xp:40, desc:'Deep study', icon:'i-book', color:'blue', done:false},
+        {id:'2', name:'Workout — 20 min', xp:20, desc:'Move your body', icon:'i-dumbbell', color:'green', done:false},
+        {id:'3', name:'10 min review', xp:15, desc:'Recall & remember', icon:'i-flower', color:'yellow', done:false},
+        {id:'4', name:'Phone-free focus', xp:25, desc:'One focused block', icon:'i-phone-off', color:'orange', done:false}
+      ],
+      streak: 0,
+      xp: 0,
+      lastDate: null
+    };
+  }
+  function save(){ localStorage.setItem(STORAGE, JSON.stringify(state)); }
+
+  function esc(s){
+    const d = document.createElement('div');
+    d.textContent = s == null ? '' : String(s);
+    return d.innerHTML;
+  }
+
+  function todayKey(){
+    const d = new Date();
+    return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+  }
+
+  function checkStreak(){
+    const t = todayKey();
+    if(state.lastDate === t) return;
+    if(state.lastDate){
+      const prev = new Date(state.lastDate);
+      const now = new Date(t);
+      const diff = (now - prev) / 86400000;
+      if(diff > 1.5) state.streak = 0;
+    }
+    // reset daily done flags on new day
+    if(state.lastDate !== t){
+      state.missions.forEach(m => m.done = false);
+      state.lastDate = t;
+      save();
+    }
+  }
+
+  function updateProgressOnly(){
+    const total = state.missions.length;
+    const done = state.missions.filter(m => m.done).length;
+    const pct = total ? Math.round(done/total*100) : 0;
+    const xpToday = state.missions.filter(m => m.done).reduce((s,m) => s + (m.xp||0), 0);
+
+    const bar = $('#goalBar');
+    if(bar) bar.style.width = pct + '%';
+    const orb = $('#progressOrb');
+    if(orb) orb.style.setProperty('--p', pct + '%');
+    const pctEl = $('#progressPct');
+    if(pctEl) pctEl.textContent = pct + '%';
+    const count = $('#goalCount');
+    if(count) count.textContent = done + ' / ' + total;
+    const earned = $('#xpEarned');
+    if(earned) earned.textContent = xpToday + ' XP earned';
+
+    // stats
+    const set = (id, v) => { const el = $(id); if(el) el.textContent = v; };
+    set('#mStreak', state.streak);
+    set('#mXp', state.xp);
+    set('#dStreak', state.streak);
+    set('#dXp', state.xp);
+    set('#sStreak', state.streak);
+    set('#sXp', state.xp);
+    set('#sDone', state.missions.filter(m=>m.done).length);
+    set('#sTotal', state.missions.length);
+  }
+
+  function render(){
+    checkStreak();
+    const list = $('#taskList');
+    if(!list) return;
+    list.innerHTML = state.missions.map(m => {
+      const color = m.color || 'blue';
+      return `<div class="task ${m.done?'done':''}" data-id="${esc(m.id)}" data-color="${esc(color)}">
+        <div class="task-icon"><svg class="icon"><use href="#${esc(m.icon||'i-book')}"/></svg></div>
+        <div class="task-body">
+          <div class="task-name">${esc(m.name)}</div>
+          <div class="task-meta"><span class="xp-pill">+${m.xp||0} XP</span><span class="task-desc">${esc(m.desc||'')}</span></div>
+        </div>
+        <button type="button" class="check" aria-label="toggle"><svg class="icon"><use href="#i-check"/></svg></button>
+      </div>`;
+    }).join('');
+    updateProgressOnly();
+    // date
+    const now = new Date();
+    const opts = {weekday:'long', month:'short', day:'numeric'};
+    const strong = $('#dateStrong');
+    if(strong) strong.textContent = now.toLocaleDateString(undefined, opts);
+  }
+
+  function toggle(id){
+    const m = state.missions.find(x => x.id === id);
+    if(!m) return;
+    const was = m.done;
+    m.done = !m.done;
+    if(m.done && !was){
+      state.xp += (m.xp || 0);
+      // streak if all done today
+      if(state.missions.every(x => x.done)){
+        state.streak = (state.streak || 0) + 1;
+      }
+    } else if(!m.done && was){
+      state.xp = Math.max(0, state.xp - (m.xp || 0));
+    }
+    save();
+    // seamless: update only the one task DOM + progress, no full re-render flash
+    const row = document.querySelector(`.task[data-id="${CSS.escape(id)}"]`);
+    if(row){
+      row.classList.toggle('done', m.done);
+    }
+    updateProgressOnly();
+  }
+
+  function addMission(){
+    const name = ($('#newName')?.value || '').trim();
+    if(!name) return;
+    const xp = Math.min(100, Math.max(5, parseInt($('#newXp')?.value,10) || 20));
+    const desc = ($('#newDesc')?.value || '').trim();
+    const id = Date.now().toString(36);
+    const colors = ['blue','green','yellow','orange','red'];
+    state.missions.push({
+      id, name, xp, desc,
+      icon: selectedIcon || 'i-book',
+      color: colors[state.missions.length % colors.length],
+      done: false
+    });
+    save();
+    $('#newName').value = '';
+    $('#newDesc').value = '';
+    render();
+  }
+
+  function showPage(name){
+    $$('.page').forEach(p => p.classList.toggle('active', p.id === 'page-'+name));
+    $$('.nav button').forEach(b => b.classList.toggle('active', b.dataset.page === name));
+    syncGlassNavbar(name);
+  }
+
+  function syncGlassNavbar(name){
+    $$('#mobileNavbar button').forEach(btn => {
+      const on = btn.dataset.page === name;
+      btn.classList.toggle('text-white', on);
+      btn.classList.toggle('bg-[#1cb0f6]/20', on);
+      btn.classList.toggle('text-[#afafaf]', !on);
+    });
+  }
+
+  // events
+  document.addEventListener('click', e => {
+    const tab = e.target.closest('[data-page]');
+    if(tab && tab.dataset.page){
+      e.preventDefault();
+      showPage(tab.dataset.page);
+      return;
+    }
+    const check = e.target.closest('.check');
+    if(check){
+      const row = check.closest('.task');
+      if(row) toggle(row.dataset.id);
+      return;
+    }
+    const iconBtn = e.target.closest('#iconPicker button');
+    if(iconBtn){
+      $$('#iconPicker button').forEach(b => b.classList.remove('active'));
+      iconBtn.classList.add('active');
+      selectedIcon = iconBtn.dataset.icon;
+      return;
+    }
+    if(e.target.closest('#addBtn')){
+      addMission();
+    }
+  });
+
+  // boot
+  checkStreak();
+  render();
+  showPage('today');
+  requestAnimationFrame(() => {
+    setTimeout(() => $('#app-loader')?.classList.add('hide'), 280);
+  });
+})();
+</script>
+</body>
+</html>
