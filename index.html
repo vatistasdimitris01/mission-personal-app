@@ -11,14 +11,133 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2358cc02' d='M13.5 2 5 13h6l-1 9 9-12h-6l.5-8Z'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACs0lEQVR42u3c0VHrMBCGUSzylvGkGCpIASmACikgBaSCVJNnZmiAJ4yk3dX5CmCIc/hlQ+7dzvvlTfqt5hIIDsEhOASH4BAcgkNwCA7BIcEhOASH4BAcgkNwCA7BoeU6RfuGbo/Xyu/H/brH+Wa2CJ8+XxxEWCgzcTARXMkcHFikIDIaBxaJiDQycjXyGg5aDiwyTkgjw4RMw0FG3mvbyOBjAg4ysvtoZPAxFAcZNXw0MviY+SirpLXgeDXx+jcy+HCsaB4Os1FvPCyHOuMwGyXHw3IIDk3B4UyperJYDsEhOBQIhxuOwrcdlkNw/LWvj284RAYcgsNswEEGHGTAITjMBhwlZHw+3+GQzYBDcJgNOMiAgww4BIfZgIMMOMiAQ3CYDa2Mgww4yIBDcJgNOGLJWPnDHAvhsBlwCA6zAQcZcJABh7J1Kvzajs/G8a+Q+mG4kdGv7L8maWSQ4Z5DcJgNOMiAgww4BIfZgIMMOMgoLcM9h0rjMBtwkDGh3H+VPf7GHORV+xPI7jkEhwMFjmFnygr/pMVykAGH4DAbcJABBxlwCI7cz7EL/ncMloMMOMiAQ3CYDTjIgIMMOBI/x8IhswEHGXCQAYfgMBtwkAFHuOdYMuAQHA4UOMiAgww4BIfZgCP6cywZcNgMOASH2YCDDDgEhxbFcb/uLmLYDr47lkNwCA7FwuG2o+QNh+UQHJqIw8lS70yxHBqCw3gUmw3LoVE4jEel2fj/5eCjjAzHisbiMB41ZqPXcvBRQEbHY4WP7DL63nPwkVpG9xtSPvLKGPG0wkfea9sKvAYyOrWd98uw13N7vLypiX7YWslXRUa+5TAhuX605uBAJMXizsRBSfBTOAQOUGLeloXDoTj5k73gEByCQ3AIDsEhOASH4BAcEhyCQ3AIDsEhOASH4FDZfgCuV/M3alYsXgAAAABJRU5ErkJggg==">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-/* truncated for size - will use full file via alternative */
+:root{--green:#58cc02;--green-dark:#46a302;--blue:#1cb0f6;--blue-dark:#168fc8;--yellow:#ffc800;--orange:#ff9600;--red:#ff4b4b;--page:#0b0d0f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100vh;background:#0b0d0f;color:#f7f7f7;font-family:system-ui,sans-serif}
+.shell{max-width:640px;margin:auto;padding:16px;padding-bottom:120px}
+.mobile-head{display:flex;align-items:center;justify-content:space-between;padding:calc(18px + env(safe-area-inset-top,0px)) 0 14px;position:sticky;top:0;background:#0b0d0f;z-index:30}
+.mobile-brand{font-size:22px;color:#58cc02;font-weight:700;display:flex;align-items:center;gap:8px}
+.brand-mark{width:31px;height:31px;border-radius:10px;background:#58cc02;display:grid;place-items:center;color:#fff}
+.goal-card{background:#58cc02;border-radius:22px;padding:22px;color:#fff;margin-bottom:24px;box-shadow:0 6px 0 #46a302}
+.goal-card h1{font-size:26px;margin:8px 0}
+.task{display:flex;align-items:center;gap:12px;padding:12px;background:#15181c;border:2px solid #2b2f35;border-radius:16px;margin-bottom:10px}
+.task.done{opacity:.55}
+.check{width:40px;height:40px;border-radius:12px;border:2px solid #3a3f46;background:#0f1215}
+.task.done .check{background:#58cc02;border-color:#58cc02}
+#mobileNavbar{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:9999;width:min(310px,calc(100vw - 80px));height:68px;padding:5px;border-radius:9999px;background:rgba(16,20,24,.85);backdrop-filter:blur(24px);display:flex;align-items:center}
+#mobileNavbar button{flex:1;height:100%;border:none;background:transparent;color:#afafaf;font-size:10px;font-weight:700;text-transform:uppercase}
+#mobileNavbar button.active{color:#fff;background:rgba(28,176,246,.2);border-radius:9999px}
+.page{display:none}.page.active{display:block}
+.stat-card{background:#15181c;border:2px solid #2b2f35;border-radius:16px;padding:16px;margin-bottom:10px}
+.stat-card b{font-size:24px;display:block}
+.form-card{background:#15181c;border:2px solid #2b2f35;border-radius:16px;padding:16px;margin-top:20px}
+.form-card input,.form-card select{width:100%;height:44px;border-radius:12px;border:2px solid #2b2f35;background:#0f1215;color:#fff;padding:0 12px;margin-bottom:10px}
+.btn-primary{width:100%;height:48px;border:none;border-radius:14px;background:#58cc02;color:#fff;font-weight:900}
+.panel-title h1{font-size:24px;margin:0 0 4px}.panel-title p{color:#7f838a;margin:0 0 16px}
+.rank-card{background:linear-gradient(135deg,#1cb0f6,#0e7aa8);border-radius:16px;padding:16px;color:#fff;margin-bottom:16px}
+.rank-track{height:10px;background:rgba(255,255,255,.25);border-radius:10px;margin-top:10px;overflow:hidden}
+.rank-track i{display:block;height:100%;background:#fff;width:0}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px}
+.dot{aspect-ratio:1;border-radius:8px;background:#1a1d21;display:grid;place-items:center;font-size:10px;color:#555}
+.dot.done{background:#1a2e12;color:#58cc02}.dot.today{outline:2px solid #1cb0f6}
+.mission-row{display:flex;align-items:center;gap:10px;padding:10px;background:#15181c;border:2px solid #2b2f35;border-radius:12px;margin-bottom:8px}
+.del{background:#1a1212;color:#ff6b6b;border:none;border-radius:8px;width:32px;height:32px;font-weight:900}
+.btn-danger{background:#ff4b4b;color:#fff;border:none;border-radius:12px;padding:12px 16px;font-weight:900}
+#app-loader{position:fixed;inset:0;background:#0b0d0f;z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#58cc02;font-weight:700;font-size:20px}
+#app-loader.hide{opacity:0;pointer-events:none;transition:.3s}
 </style>
-</head><body>LOADING</body></html>
+</head>
+<body>
+<div id="app-loader">mission</div>
+<div class="shell">
+  <div class="mobile-head">
+    <div class="mobile-brand"><div class="brand-mark">⚡</div> mission</div>
+    <div><span id="mStreak">0</span>🔥 <span id="mXp">0</span>XP</div>
+  </div>
+  <section class="page active" id="page-today">
+    <div class="goal-card"><div style="font-size:12px;opacity:.8">DAILY GOAL</div><h1>Ready for a strong day?</h1><p>Finish your missions and keep your streak growing.</p><div style="margin-top:12px"><span id="goalCount">0 / 0</span> · <span id="progressPct">0%</span></div></div>
+    <h2>Today's missions</h2>
+    <div id="taskList"></div>
+    <div class="form-card">
+      <h3>Add mission</h3>
+      <input id="newName" placeholder="Name">
+      <input id="newXp" type="number" value="20">
+      <input id="newDesc" placeholder="Description">
+      <button class="btn-primary" id="addBtn">Add mission</button>
+    </div>
+  </section>
+  <section class="page" id="page-progress">
+    <div class="panel-title"><h1>Your progress</h1><p>Every checkmark moves you forward.</p></div>
+    <div class="stat-card"><b id="sStreak">0</b> Day streak</div>
+    <div class="stat-card"><b id="sXp">0</b> Total XP</div>
+    <div class="stat-card"><b id="sDone">0</b> Finished today</div>
+    <div class="section-head" style="margin:16px 0 8px"><strong>Current level</strong> <span id="levelXP">0 / 100</span></div>
+    <div class="rank-card"><div><small>Your rank</small><h3 id="levelName">Level 1</h3></div><div class="rank-track"><i id="levelBar"></i></div></div>
+    <div style="margin:16px 0 8px"><strong>Last 14 days</strong></div>
+    <div class="calendar" id="calendar"></div>
+    <div class="stat-card"><strong id="quote">Keep showing up.</strong><p id="quoteSub" style="color:#7f838a;margin:4px 0 0">Small actions compound.</p></div>
+  </section>
+  <section class="page" id="page-goals">
+    <div class="panel-title"><h1>My goals</h1><p>Build a daily plan that feels doable.</p></div>
+    <div class="form-card">
+      <h3>Add a mission</h3>
+      <input id="gName" placeholder="Name">
+      <select id="gXp"><option value="10">10 XP</option><option value="20" selected>20 XP</option><option value="30">30 XP</option><option value="40">40 XP</option><option value="50">50 XP</option></select>
+      <select id="gColor"><option value="blue">Blue</option><option value="green">Green</option><option value="yellow">Yellow</option><option value="orange">Orange</option><option value="red">Red</option></select>
+      <input id="gDesc" placeholder="Description">
+      <button class="btn-primary" id="gAddBtn">Add to my day</button>
+    </div>
+    <div style="margin:16px 0 8px"><strong>Daily list</strong> <span id="gCount">0</span></div>
+    <div id="gList"></div>
+    <div style="margin:16px 0 8px"><strong>Preferences</strong></div>
+    <div class="form-card">
+      <select id="prefCoach"><option value="chill">Coach: Chill</option><option value="hype">Coach: Hype</option><option value="strict">Coach: Strict</option></select>
+      <button class="btn-primary" id="savePrefs" style="margin-top:8px">Save preferences</button>
+    </div>
+    <div style="margin:16px 0 8px"><strong>Start fresh</strong></div>
+    <button class="btn-danger" id="resetBtn">Reset everything</button>
+  </section>
+</div>
+<nav id="mobileNavbar">
+  <button type="button" data-page="today" class="active">Today</button>
+  <button type="button" data-page="progress">Progress</button>
+  <button type="button" data-page="goals">Goals</button>
+</nav>
+<script>
+(function(){
+const STORAGE='mission_pro_v3';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let state=load();
+function load(){try{const r=localStorage.getItem(STORAGE);if(r)return JSON.parse(r)}catch(e){}
+return{missions:[{id:'1',name:'Physics — 45 min',xp:40,desc:'Deep study',color:'blue',done:false},{id:'2',name:'Workout — 20 min',xp:20,desc:'Move your body',color:'green',done:false},{id:'3',name:'10 min review',xp:15,desc:'Recall',color:'yellow',done:false},{id:'4',name:'Phone-free focus',xp:25,desc:'Focus block',color:'orange',done:false}],streak:0,xp:0,lastDate:null,history:{},prefs:{coach:'chill'}}}
+function save(){localStorage.setItem(STORAGE,JSON.stringify(state))}
+function esc(s){const d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML}
+function todayKey(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+function checkStreak(){const t=todayKey();if(state.lastDate===t)return;if(state.lastDate){const diff=(new Date(t)-new Date(state.lastDate))/86400000;if(diff>1.5)state.streak=0}if(state.lastDate!==t){state.missions.forEach(m=>m.done=false);state.lastDate=t;save()}}
+function levelInfo(xp){const per=100,lvl=Math.floor(xp/per)+1,into=xp%per;return{lvl,into,per,pct:Math.round(into/per*100)}}
+function renderCalendar(){const el=$('#calendar');if(!el)return;const hist=state.history||{};let h='';const today=new Date();for(let i=13;i>=0;i--){const d=new Date(today);d.setDate(today.getDate()-i);const key=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();h+='<div class="dot'+(hist[key]?' done':'')+(i===0?' today':'')+'">'+d.getDate()+'</div>'}el.innerHTML=h}
+function renderGoalsList(){const list=$('#gList');if(!list)return;const c=$('#gCount');if(c)c.textContent=state.missions.length+' goals';list.innerHTML=state.missions.map(m=>'<div class="mission-row"><div style="width:36px;height:36px;border-radius:10px;background:var(--'+(m.color||'blue')+');"></div><div style="flex:1"><strong>'+esc(m.name)+'</strong><div style="font-size:12px;color:#7f838a">+'+(m.xp||0)+' XP</div></div><button class="del" data-del="'+esc(m.id)+'">×</button></div>').join('')||'<p style="color:#7f838a">No missions yet.</p>'}
+function updateQuotes(){const style=(state.prefs&&state.prefs.coach)||'chill';const q={chill:['Keep showing up.','Small actions compound.'],hype:['You got this!','Stack that XP.'],strict:['No excuses.','Execute.']};const p=q[style]||q.chill;const a=$('#quote');if(a)a.textContent=p[0];const b=$('#quoteSub');if(b)b.textContent=p[1]}
+function updateProgressOnly(){const total=state.missions.length,done=state.missions.filter(m=>m.done).length,pct=total?Math.round(done/total*100):0;
+const set=(id,v)=>{const e=$(id);if(e)e.textContent=v};set('#goalCount',done+' / '+total);set('#progressPct',pct+'%');set('#mStreak',state.streak);set('#mXp',state.xp);set('#sStreak',state.streak);set('#sXp',state.xp);set('#sDone',done);
+const li=levelInfo(state.xp||0);set('#levelName','Level '+li.lvl);set('#levelXP',li.into+' / '+li.per+' XP');const lb=$('#levelBar');if(lb)lb.style.width=li.pct+'%';renderCalendar();updateQuotes()}
+function render(){checkStreak();const list=$('#taskList');if(!list)return;list.innerHTML=state.missions.map(m=>'<div class="task '+(m.done?'done':'')+'" data-id="'+esc(m.id)+'"><button class="check" type="button">✓</button><div style="flex:1"><strong>'+esc(m.name)+'</strong><div style="font-size:12px;color:#7f838a">+'+(m.xp||0)+' XP · '+esc(m.desc||'')+'</div></div></div>').join('');updateProgressOnly();renderGoalsList()}
+function toggle(id){const m=state.missions.find(x=>x.id===id);if(!m)return;const was=m.done;m.done=!m.done;if(m.done&&!was){state.xp+=(m.xp||0);if(state.missions.every(x=>x.done)){state.streak=(state.streak||0)+1;if(!state.history)state.history={};state.history[todayKey()]=true}}else if(!m.done&&was){state.xp=Math.max(0,state.xp-(m.xp||0))}save();const row=document.querySelector('.task[data-id="'+CSS.escape(id)+'"]');if(row)row.classList.toggle('done',m.done);updateProgressOnly()}
+function showPage(name){$$('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+name));$$('#mobileNavbar button').forEach(b=>{b.classList.toggle('active',b.dataset.page===name)});if(name==='goals')renderGoalsList();if(name==='progress')updateProgressOnly()}
+document.addEventListener('click',e=>{const tab=e.target.closest('[data-page]');if(tab&&tab.dataset.page){showPage(tab.dataset.page);return}
+const check=e.target.closest('.check');if(check){const row=check.closest('.task');if(row)toggle(row.dataset.id);return}
+if(e.target.closest('#addBtn')){const name=($('#newName')?.value||'').trim();if(!name)return;state.missions.push({id:Date.now().toString(36),name,xp:parseInt($('#newXp')?.value,10)||20,desc:($('#newDesc')?.value||'').trim(),color:'blue',done:false});save();$('#newName').value='';$('#newDesc').value='';render();return}
+if(e.target.closest('#gAddBtn')){const name=($('#gName')?.value||'').trim();if(!name)return;state.missions.push({id:Date.now().toString(36),name,xp:parseInt($('#gXp')?.value,10)||20,desc:($('#gDesc')?.value||'').trim(),color:$('#gColor')?.value||'blue',done:false});save();$('#gName').value='';$('#gDesc').value='';render();return}
+const del=e.target.closest('[data-del]');if(del){state.missions=state.missions.filter(m=>m.id!==del.getAttribute('data-del'));save();render();return}
+if(e.target.closest('#savePrefs')){if(!state.prefs)state.prefs={};state.prefs.coach=$('#prefCoach')?.value||'chill';save();updateQuotes();return}
+if(e.target.closest('#resetBtn')){if(!confirm('Reset all progress?'))return;localStorage.removeItem(STORAGE);state=load();render();return}});
+if(!state.history)state.history={};if(!state.prefs)state.prefs={coach:'chill'};
+const pc=$('#prefCoach');if(pc)pc.value=state.prefs.coach||'chill';
+checkStreak();render();showPage('today');
+requestAnimationFrame(()=>setTimeout(()=>$('#app-loader')?.classList.add('hide'),280));
+})();
+</script>
+</body>
+</html>
