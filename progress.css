@@ -6,8 +6,8 @@
     align-items: center !important;
     justify-content: space-between !important;
     margin: 0 -16px 16px !important;
-    /* Extra 12px beyond safe-area so native blur / Dynamic Island never covers content */
-    padding: calc(18px + env(safe-area-inset-top, 0px)) 16px 12px !important;
+    /* Extra beyond safe-area so native blur / Dynamic Island never covers content */
+    padding: calc(28px + env(safe-area-inset-top, 0px)) 16px 12px !important;
     background: #0b0d0f !important;
     border-bottom: 1px solid #1e2228 !important;
     position: sticky !important;
@@ -58,16 +58,16 @@
   .mobile-stat.fire { color: #ff9600 !important; }
   .mobile-stat.xp { color: #1cb0f6 !important; }
   .content {
-    padding: 0 16px calc(120px + env(safe-area-inset-bottom, 0px)) !important;
+    padding: 0 16px calc(100px + env(safe-area-inset-bottom, 0px)) !important;
   }
 }
 
-/* ===== NAVBAR — original modular glass + animations ===== */
+/* ===== NAVBAR — glass pill at bottom edge ===== */
 #mobileNavbar {
   display: none;
   position: fixed !important;
   left: 50% !important;
-  bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+  bottom: calc(4px + env(safe-area-inset-bottom, 0px)) !important;
   transform: translateX(-50%) !important;
   z-index: 9999 !important;
   width: min(300px, calc(100vw - 40px)) !important;
