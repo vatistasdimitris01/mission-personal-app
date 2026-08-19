@@ -160,20 +160,17 @@ function renderGoalsList(){
     list.innerHTML='<p style="color:#7f838a;font-weight:700">No missions yet. Add one above or use a preset.</p>';
     return;
   }
-  list.innerHTML=state.missions.map((m,idx)=>
-    '<div class="mission-row" data-id="'+esc(m.id)+'">'+'
-      '<div class="mr-icon" style="background:var(--'+(m.color||'blue')+')">'+'
-        '<svg class="icon"><use href="#'+esc(m.icon||'i-book')+'"/></svg>'+'
-      '</div>'+'
-      '<div><strong>'+esc(m.name)+'</strong><span>+'+(m.xp||0)+' XP'+(m.desc?' · '+esc(m.desc):'')+'</span></div>'+'
-      '<div class="actions">'+'
-        '<button type="button" class="act" data-move="up" data-id="'+esc(m.id)+'" '+(idx===0?'disabled':'')+'>↑</button>'+'
-        '<button type="button" class="act" data-move="down" data-id="'+esc(m.id)+'" '+(idx===state.missions.length-1?'disabled':'')+'>↓</button>'+'
-        '<button type="button" class="act" data-edit="'+esc(m.id)+'">✎</button>'+'
-        '<button type="button" class="act del" data-del="'+esc(m.id)+'">×</button>'+'
-      '</div>'+'
-    '</div>'
-  ).join('');
+  list.innerHTML=state.missions.map((m,idx)=>{
+    return '<div class="mission-row" data-id="'+esc(m.id)+'">'+
+      '<div class="mr-icon" style="background:var(--'+(m.color||'blue')+')"><svg class="icon"><use href="#'+esc(m.icon||'i-book')+'"/></svg></div>'+
+      '<div><strong>'+esc(m.name)+'</strong><span>+'+(m.xp||0)+' XP'+(m.desc?' · '+esc(m.desc):'')+'</span></div>'+
+      '<div class="actions">'+
+      '<button type="button" class="act" data-move="up" data-id="'+esc(m.id)+'" '+(idx===0?'disabled':'')+'>↑</button>'+
+      '<button type="button" class="act" data-move="down" data-id="'+esc(m.id)+'" '+(idx===state.missions.length-1?'disabled':'')+'>↓</button>'+
+      '<button type="button" class="act" data-edit="'+esc(m.id)+'">✎</button>'+
+      '<button type="button" class="act del" data-del="'+esc(m.id)+'">×</button>'+
+      '</div></div>';
+  }).join('');
 }
 
 function updateQuotes(){
@@ -225,11 +222,11 @@ function render(){
   if(!list)return;
   list.innerHTML=state.missions.map(m=>{
     const color=m.color||'blue';
-    return '<div class="task '+(m.done?'done':'')+'" data-id="'+esc(m.id)+'" data-color="'+esc(color)+'">'+'
-      '<div class="task-icon"><svg class="icon"><use href="#'+esc(m.icon||'i-book')+'"/></svg></div>'+'
-      '<div class="task-body"><div class="task-name">'+esc(m.name)+'</div>'+'
-      '<div class="task-meta"><span class="xp-pill">+'+(m.xp||0)+' XP</span>'+'
-      '<span class="task-desc">'+esc(m.desc||'')+'</span></div></div>'+'
+    return '<div class="task '+(m.done?'done':'')+'" data-id="'+esc(m.id)+'" data-color="'+esc(color)+'">'+
+      '<div class="task-icon"><svg class="icon"><use href="#'+esc(m.icon||'i-book')+'"/></svg></div>'+
+      '<div class="task-body"><div class="task-name">'+esc(m.name)+'</div>'+
+      '<div class="task-meta"><span class="xp-pill">+'+(m.xp||0)+' XP</span>'+
+      '<span class="task-desc">'+esc(m.desc||'')+'</span></div></div>'+
       '<button type="button" class="check" aria-label="toggle"><svg class="icon"><use href="#i-check"/></svg></button></div>';
   }).join('');
   updateProgressOnly();
