@@ -61,34 +61,52 @@
 </section>
 
 <section class="page" id="page-progress">
-<div class="panel-title"><h1>Your progress</h1><p>Track streaks, XP, and consistency.</p></div>
-<div class="pg-hero">
-  <div class="pg-level-card">
-    <div class="level-ring" id="levelRing" style="--lp:0%"><div class="inner"><b id="levelNum">1</b><span>Level</span></div></div>
-    <div class="lvl-meta"><strong id="levelXP">0 / 100</strong> XP to next</div>
+<div class="pg-streak-hero">
+  <div class="pg-streak-left">
+    <div class="pg-streak-label">CURRENT STREAK</div>
+    <div class="pg-streak-num"><span id="sStreak">0</span><small>days</small></div>
+    <div class="pg-streak-best">Best <em id="sBest">0</em> days</div>
   </div>
-  <div class="pg-streak-card">
-    <div class="fire-big">🔥</div>
-    <b id="sStreak">0</b>
-    <span>Day streak</span>
-    <div class="best">Best: <em id="sBest">0</em> days</div>
+  <div class="pg-streak-flame">🔥</div>
+</div>
+
+<div class="pg-level-block">
+  <div class="pg-level-top">
+    <div class="level-ring" id="levelRing" style="--lp:0%">
+      <div class="inner"><b id="levelNum">1</b><span>LVL</span></div>
+    </div>
+    <div class="pg-level-info">
+      <div class="pg-level-title">Your level</div>
+      <div class="pg-level-xp"><strong id="levelXP">0 / 100</strong> XP to next</div>
+      <div class="pg-xp-track"><i id="levelBar"></i></div>
+    </div>
   </div>
 </div>
+
 <div class="pg-stats-row">
   <div class="pg-stat"><b id="sXp">0</b><span>Total XP</span></div>
   <div class="pg-stat"><b id="sLifetime">0</b><span>Checks</span></div>
   <div class="pg-stat"><b id="sPerfect">0</b><span>Perfect</span></div>
 </div>
+
 <div class="pg-chart-card">
-  <h3>This week</h3>
-  <div class="sub"><span id="sWeekXp">0</span> XP earned · last 7 days</div>
+  <div class="pg-chart-head">
+    <h3>This week</h3>
+    <span class="pg-chart-xp"><span id="sWeekXp">0</span> XP</span>
+  </div>
   <div class="week-chart" id="weekBars"></div>
 </div>
+
 <div class="section-head"><h2>Achievements</h2><span>Unlocks</span></div>
 <div class="pg-ach-grid" id="achievements"></div>
-<div class="section-head"><h2>Last 14 days</h2><span>Consistency</span></div>
+
+<div class="section-head"><h2>Last 14 days</h2><span>Heatmap</span></div>
 <div class="calendar-card"><div class="calendar" id="calendar"></div></div>
-<div class="coach-card"><div class="mascot"><div class="mascot-eyes"><i></i><i></i></div></div><div><strong id="quote">Keep showing up.</strong><p id="quoteSub">Small actions compound into streaks.</p></div></div>
+
+<div class="coach-card">
+  <div class="mascot"><div class="mascot-eyes"><i></i><i></i></div></div>
+  <div><strong id="quote">Keep showing up.</strong><p id="quoteSub">Small actions compound into streaks.</p></div>
+</div>
 </section>
 
 <section class="page" id="page-goals">
