@@ -7,7 +7,7 @@
     justify-content: space-between !important;
     margin: 0 -16px 16px !important;
     /* Extra beyond safe-area so native blur / Dynamic Island never covers content */
-    padding: calc(28px + env(safe-area-inset-top, 0px)) 16px 12px !important;
+    padding: calc(40px + env(safe-area-inset-top, 0px)) 16px 14px !important;
     background: #0b0d0f !important;
     border-bottom: 1px solid #1e2228 !important;
     position: sticky !important;
